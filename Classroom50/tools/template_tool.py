@@ -75,9 +75,16 @@ EXPECTED_LICENSE_POLICY = {
     "original_instructional_prose": "CC-BY-4.0",
     "third_party_materials": "excluded",
 }
+EXPECTED_IMAGE_REPOSITORY = "ghcr.io/hoanganhduc/vnu-hus-introai-exercises"
+EXPECTED_DOCKERFILE_SHA256 = (
+    "f9ec2cc2ff69f9aded3a6aa46b309ad7e8954734841af4e0cc230fc0501d4a24"
+)
 EXPECTED_WORKFLOW_SHA256 = {
+    ".github/workflows/build-docker.yml": (
+        "7bee34f4ee77a4e7fef4ff1cb85d6cdcbaf8d929cad4db9eef06af8495ea2bbc"
+    ),
     ".github/workflows/classroom50-templates.yml": (
-        "a9fff4a147dab4767ad5928be1e9283ac6f58640a225015aa85803ea295eab6c"
+        "3e9314e0e7229e61b545497feba49460b62d6ad29c5d4143e03fd444b569fc3f"
     ),
     ".github/workflows/week0-solo-collaboration.yml": (
         "5deb14a92c4031cfdf4d740d98a8e97fbea6e6c7eb5a757b68f332e1b9658476"
@@ -256,7 +263,23 @@ def _validate_git_index(repo_root: Path, errors: list[str]) -> None:
 
 
 def _validate_workflows(repo_root: Path, errors: list[str]) -> None:
-    """Require the two explicitly reviewed, credential-minimized workflows."""
+    """Require exactly the reviewed, credential-minimized workflows and build source."""
+
+    actual_workflows = {
+        relative
+        for relative in _tree_files(repo_root)
+        if PurePosixPath(relative).parts[:2] == (".github", "workflows")
+    }
+    expected_workflows = set(EXPECTED_WORKFLOW_SHA256)
+    if actual_workflows != expected_workflows:
+        unexpected = sorted(actual_workflows - expected_workflows)
+        missing = sorted(expected_workflows - actual_workflows)
+        if unexpected:
+            errors.append(
+                "public source has unapproved workflows: " + ", ".join(unexpected)
+            )
+        if missing:
+            errors.append("public source is missing workflows: " + ", ".join(missing))
 
     for relative, expected_digest in EXPECTED_WORKFLOW_SHA256.items():
         path = repo_root / PurePosixPath(relative)
@@ -265,6 +288,12 @@ def _validate_workflows(repo_root: Path, errors: list[str]) -> None:
         actual_digest = hashlib.sha256(path.read_bytes()).hexdigest()
         if actual_digest != expected_digest:
             errors.append(f"approved workflow differs from reviewed bytes: {relative}")
+
+    dockerfile = repo_root / "Dockerfile"
+    if _regular_file(dockerfile, "approved Dockerfile", errors, repo_root):
+        actual_digest = hashlib.sha256(dockerfile.read_bytes()).hexdigest()
+        if actual_digest != EXPECTED_DOCKERFILE_SHA256:
+            errors.append("approved Dockerfile differs from reviewed bytes")
 
 
 def _expect_exact_keys(
@@ -500,6 +529,8 @@ def _expected_public_classification(relative: str) -> str | None:
         return "mit-license-text"
     if relative == "LICENSES/CC-BY-4.0.md":
         return "cc-license-notice"
+    if relative == "Dockerfile":
+        return "configuration"
     name = PurePosixPath(relative).name
     suffix = unicodedata.normalize(
         "NFKC", PurePosixPath(relative).suffix
@@ -821,13 +852,13 @@ def validate_repository(repo_root: Path) -> dict[str, int]:
         if (
             not isinstance(image, str)
             or re.fullmatch(
-                r"ghcr\.io/[a-z0-9_.-]+/[a-z0-9_.-]+@sha256:[0-9a-f]{64}",
+                re.escape(EXPECTED_IMAGE_REPOSITORY) + r"@sha256:[0-9a-f]{64}",
                 image,
             )
             is None
         ):
             errors.append(
-                "environment devcontainer_image must be an immutable GHCR digest"
+                "environment devcontainer_image must pin the approved GHCR repository"
             )
         devcontainer = repo_root / ".devcontainer/devcontainer.json"
         if _regular_file(

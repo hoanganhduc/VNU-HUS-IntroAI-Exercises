@@ -12,6 +12,13 @@ in `PUBLIC-CONTENT.json`. They do not grant rights to the cited book, software
 dependencies, container images, GitHub extensions, trademarks, or linked
 external content.
 
+The course-authored Dockerfile and image-publishing workflow are MIT-licensed
+configuration. The image they build contains independently licensed Microsoft
+Dev Container base layers, Ubuntu packages, SWI-Prolog, GNU Prolog, and E prover;
+the repository's MIT license does not replace those licenses. The image retains
+the pinned E prover corresponding source and its `COPYING` terms under
+`/usr/src/eprover`.
+
 Blank targets, generic helpers, completion checkers, and bibliographic metadata
 in this repository are course-authored. A course deployment that combines them
 with separately authorized third-party material is responsible for keeping that

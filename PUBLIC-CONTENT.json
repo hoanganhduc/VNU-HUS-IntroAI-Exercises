@@ -21,6 +21,12 @@
       "origin": "course-authored"
     },
     {
+      "path": ".github/workflows/build-docker.yml",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
       "path": ".github/workflows/classroom50-templates.yml",
       "classification": "configuration",
       "license": "MIT",
@@ -462,6 +468,12 @@
       "path": "Classroom50/w00-individual-onboarding/profile.md",
       "classification": "instructional-prose",
       "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Dockerfile",
+      "classification": "configuration",
+      "license": "MIT",
       "origin": "course-authored"
     },
     {

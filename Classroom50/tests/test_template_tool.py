@@ -284,6 +284,62 @@ class CatalogAndBoundaryTests(unittest.TestCase):
             ):
                 template_tool.validate_repository(repo)
 
+    def test_root_dockerfile_requires_configuration_classification(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = _fixture_repo(Path(temporary))
+            manifest = _manifest(repo)
+            entries = manifest["files"]
+            assert isinstance(entries, list)
+            dockerfile = next(entry for entry in entries if entry["path"] == "Dockerfile")
+            dockerfile["classification"] = "instructional-prose"
+            dockerfile["license"] = "CC-BY-4.0"
+            _write_manifest(repo, manifest)
+            with self.assertRaisesRegex(
+                template_tool.TemplateError,
+                "classification must be 'configuration'.*Dockerfile",
+            ):
+                template_tool.validate_repository(repo)
+
+    def test_dockerfile_drift_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = _fixture_repo(Path(temporary))
+            dockerfile = repo / "Dockerfile"
+            dockerfile.write_text(
+                dockerfile.read_text(encoding="utf-8") + "\n# drift\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                template_tool.TemplateError,
+                "approved Dockerfile differs from reviewed bytes",
+            ):
+                template_tool.validate_repository(repo)
+
+    def test_catalog_rejects_a_different_ghcr_package(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = _fixture_repo(Path(temporary))
+            catalog_path = repo / "Classroom50/catalog.json"
+            catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+            old_image = catalog["environment"]["devcontainer_image"]
+            new_image = old_image.replace(
+                "ghcr.io/hoanganhduc/vnu-hus-introai-exercises",
+                "ghcr.io/hoanganhduc/different-image",
+            )
+            catalog["environment"]["devcontainer_image"] = new_image
+            catalog_path.write_text(
+                json.dumps(catalog, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+            devcontainer = repo / ".devcontainer/devcontainer.json"
+            devcontainer.write_text(
+                devcontainer.read_text(encoding="utf-8").replace(old_image, new_image),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                template_tool.TemplateError,
+                "must pin the approved GHCR repository",
+            ):
+                template_tool.validate_repository(repo)
+
     def test_casefolded_and_unicode_chapter_paths_are_rejected(self) -> None:
         for relative in ("CHAPTER 1/notes.md", "Ｃｈａｐｔｅｒ ２/notes.md"):
             with self.subTest(relative=relative), tempfile.TemporaryDirectory() as temporary:
@@ -552,18 +608,64 @@ class CatalogAndBoundaryTests(unittest.TestCase):
                 template_tool.validate_repository(repo)
 
     def test_approved_workflow_drift_is_rejected(self) -> None:
+        for relative in template_tool.EXPECTED_WORKFLOW_SHA256:
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as temporary:
+                repo = _fixture_repo(Path(temporary))
+                workflow = repo / relative
+                workflow.write_text(
+                    workflow.read_text(encoding="utf-8") + "\n# drift\n",
+                    encoding="utf-8",
+                )
+                with self.assertRaisesRegex(
+                    template_tool.TemplateError,
+                    "approved workflow differs from reviewed bytes",
+                ):
+                    template_tool.validate_repository(repo)
+
+    def test_manifest_listed_extra_workflow_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             repo = _fixture_repo(Path(temporary))
-            workflow = repo / ".github/workflows/week0-solo-collaboration.yml"
-            workflow.write_text(
-                workflow.read_text(encoding="utf-8") + "\n# drift\n",
-                encoding="utf-8",
+            relative = ".github/workflows/extra.yml"
+            (repo / relative).write_text("name: Extra\n", encoding="utf-8")
+            _add_manifest_file(
+                repo,
+                relative,
+                classification="configuration",
+                license_id="MIT",
             )
             with self.assertRaisesRegex(
                 template_tool.TemplateError,
-                "approved workflow differs from reviewed bytes",
+                "public source has unapproved workflows.*extra.yml",
             ):
                 template_tool.validate_repository(repo)
+
+    def test_image_publisher_is_manual_and_repository_bound(self) -> None:
+        workflow = (REPO_ROOT / ".github/workflows/build-docker.yml").read_text(
+            encoding="utf-8"
+        )
+        expected_start = (
+            "name: Publish IntroAI development image\n\n"
+            "on:\n"
+            "  workflow_dispatch:\n"
+            "    inputs:\n"
+        )
+        self.assertTrue(workflow.startswith(expected_start))
+        self.assertIn("github.ref == 'refs/heads/main'", workflow)
+        self.assertIn(
+            "IMAGE: ghcr.io/hoanganhduc/vnu-hus-introai-exercises",
+            workflow,
+        )
+        self.assertIn("contents: read", workflow)
+        self.assertIn("packages: write", workflow)
+        self.assertIn("--platform linux/amd64", workflow)
+        self.assertIn("candidate-${{ github.run_id }}-${{ github.run_attempt }}", workflow)
+        self.assertIn("inputs.operation == 'promote'", workflow)
+        self.assertIn('test "$latest_digest" = "$PROMOTE_DIGEST"', workflow)
+        self.assertEqual(workflow.count("docker build \\"), 1)
+        self.assertNotIn(
+            "VNU-HUS-IntroAI-Exercises-" + "Internal",
+            workflow,
+        )
 
 
 class ExportTests(unittest.TestCase):
@@ -606,6 +708,10 @@ class ExportTests(unittest.TestCase):
                         )
                         self.assertFalse(
                             (destination / "PUBLIC-CONTENT.json").exists()
+                        )
+                        self.assertFalse((destination / "Dockerfile").exists())
+                        self.assertFalse(
+                            (destination / ".github/workflows/build-docker.yml").exists()
                         )
                         readme = (destination / "README.md").read_text(
                             encoding="utf-8"

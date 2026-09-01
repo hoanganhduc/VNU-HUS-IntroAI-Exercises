@@ -1,0 +1,207 @@
+name: Publish IntroAI development image
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Build a candidate or promote a verified digest
+        required: true
+        default: build-candidate
+        type: choice
+        options:
+          - build-candidate
+          - promote
+      promote_digest:
+        description: Existing sha256 digest to promote without rebuilding
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-introai-development-image
+  cancel-in-progress: false
+
+jobs:
+  build-candidate:
+    if: >-
+      github.repository == 'hoanganhduc/VNU-HUS-IntroAI-Exercises' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.operation == 'build-candidate'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/hoanganhduc/vnu-hus-introai-exercises
+      CANDIDATE_TAG: >-
+        ghcr.io/hoanganhduc/vnu-hus-introai-exercises:candidate-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Check out the reviewed public source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify the publication commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+
+      - name: Validate the public source boundary
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python3 -I Classroom50/tools/template_tool.py validate
+
+      - name: Run the Classroom50 source tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python3 -I -B -m unittest discover -s Classroom50/tests -p "test_*.py" -v
+
+      - name: Build and test before registry login
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker build \
+            --pull \
+            --platform linux/amd64 \
+            --build-arg "SOURCE_REVISION=$GITHUB_SHA" \
+            --tag "$CANDIDATE_TAG" \
+            .
+          docker run --rm "$CANDIDATE_TAG" sh -euc '
+            swipl --version
+            gprolog --version
+            eprover --version
+            test -f /usr/src/eprover/COPYING
+            test -s /usr/local/share/vnu-hus-introai/installed-packages.tsv
+          '
+
+      - name: Push and verify the candidate digest
+        shell: bash
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          trap 'docker logout ghcr.io >/dev/null 2>&1 || true' EXIT
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$CANDIDATE_TAG"
+          docker logout ghcr.io
+          trap - EXIT
+
+          candidate_digest="$(
+            docker buildx imagetools inspect "$CANDIDATE_TAG" |
+              awk '/^Digest:/ {print $2; exit}'
+          )"
+          case "$candidate_digest" in
+            sha256:????????????????????????????????????????????????????????????????) ;;
+            *) printf 'Invalid candidate digest: %s\n' "$candidate_digest" >&2; exit 1 ;;
+          esac
+
+          docker pull "$IMAGE@$candidate_digest"
+          test "$(
+            docker image inspect "$IMAGE@$candidate_digest" \
+              --format '{{ index .Config.Labels "org.opencontainers.image.source" }}'
+          )" = "https://github.com/hoanganhduc/VNU-HUS-IntroAI-Exercises"
+          test "$(
+            docker image inspect "$IMAGE@$candidate_digest" \
+              --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}'
+          )" = "$GITHUB_SHA"
+          package_manifest_sha256="$(
+            docker run --rm "$IMAGE@$candidate_digest" \
+              sha256sum /usr/local/share/vnu-hus-introai/installed-packages.tsv |
+              awk '{print $1}'
+          )"
+          {
+            printf '### Candidate image\n\n'
+            printf -- '- `%s@%s`\n' "$IMAGE" "$candidate_digest"
+            printf -- '- Source revision: `%s`\n' "$GITHUB_SHA"
+            printf -- '- Candidate tag: `%s`\n' "$CANDIDATE_TAG"
+            printf -- '- Package manifest SHA-256: `%s`\n' "$package_manifest_sha256"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  promote:
+    if: >-
+      github.repository == 'hoanganhduc/VNU-HUS-IntroAI-Exercises' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.operation == 'promote'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/hoanganhduc/vnu-hus-introai-exercises
+      PROMOTE_DIGEST: ${{ inputs.promote_digest }}
+    steps:
+      - name: Check out the reviewed public source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate the current public source
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python3 -I Classroom50/tools/template_tool.py validate
+
+      - name: Verify the tested digest and its source revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          case "$PROMOTE_DIGEST" in
+            sha256:????????????????????????????????????????????????????????????????) ;;
+            *) printf 'Invalid promotion digest: %s\n' "$PROMOTE_DIGEST" >&2; exit 1 ;;
+          esac
+
+          docker pull "$IMAGE@$PROMOTE_DIGEST"
+          test "$(
+            docker image inspect "$IMAGE@$PROMOTE_DIGEST" \
+              --format '{{ index .Config.Labels "org.opencontainers.image.source" }}'
+          )" = "https://github.com/hoanganhduc/VNU-HUS-IntroAI-Exercises"
+          source_revision="$(
+            docker image inspect "$IMAGE@$PROMOTE_DIGEST" \
+              --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}'
+          )"
+          case "$source_revision" in
+            ????????????????????????????????????????) ;;
+            *) printf 'Invalid source revision: %s\n' "$source_revision" >&2; exit 1 ;;
+          esac
+          git cat-file -e "$source_revision^{commit}"
+          git merge-base --is-ancestor "$source_revision" "$GITHUB_SHA"
+          docker run --rm "$IMAGE@$PROMOTE_DIGEST" sh -euc '
+            swipl --version
+            gprolog --version
+            eprover --version
+            test -f /usr/src/eprover/COPYING
+            test -s /usr/local/share/vnu-hus-introai/installed-packages.tsv
+          '
+
+      - name: Promote the verified manifest to latest
+        shell: bash
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          docker tag "$IMAGE@$PROMOTE_DIGEST" "$IMAGE:latest"
+          trap 'docker logout ghcr.io >/dev/null 2>&1 || true' EXIT
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE:latest"
+          docker logout ghcr.io
+          trap - EXIT
+
+          latest_digest="$(
+            docker buildx imagetools inspect "$IMAGE:latest" |
+              awk '/^Digest:/ {print $2; exit}'
+          )"
+          test "$latest_digest" = "$PROMOTE_DIGEST"
+          {
+            printf '### Promoted image\n\n'
+            printf -- '- `%s@%s`\n' "$IMAGE" "$PROMOTE_DIGEST"
+            printf -- '- Promoted by source revision: `%s`\n' "$GITHUB_SHA"
+          } >> "$GITHUB_STEP_SUMMARY"
