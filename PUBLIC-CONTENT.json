@@ -1,0 +1,618 @@
+{
+  "schema_version": 1,
+  "repository_role": "public-reusable-source",
+  "source_repository": "hoanganhduc/VNU-HUS-IntroAI-Exercises",
+  "source_repository_id": 1353117837,
+  "licenses": {
+    "MIT": "LICENSES/MIT.txt",
+    "CC-BY-4.0": "LICENSES/CC-BY-4.0.md"
+  },
+  "files": [
+    {
+      "path": ".devcontainer/devcontainer-lock.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": ".devcontainer/devcontainer.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": ".github/workflows/classroom50-templates.yml",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": ".github/workflows/week0-solo-collaboration.yml",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": ".gitignore",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/catalog.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch01-introduction/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch01-introduction/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch01-introduction/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch01-introduction/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch01-introduction/submission.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch02-propositional-logic/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch02-propositional-logic/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch02-propositional-logic/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch02-propositional-logic/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch02-propositional-logic/solution/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/comparison.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/highjump.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/proof.sh",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/russell.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch03-first-order-logic/semigroup.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/analysis.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/proof.sh",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/tweety1.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/tweety2.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/tweety3.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/tweety4.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch04-limitations-of-logic/tweety5.lop",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/answers.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/fib.pl",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/fib01.pl",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/ones.pl",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch05-prolog/plan2.pl",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/explanation.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/solution/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch06-search/submission.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch07-uncertainty/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch07-uncertainty/answers.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch07-uncertainty/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch07-uncertainty/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch07-uncertainty/derivation.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/ch07-uncertainty/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/shared/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/tests/test_checkers.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/tests/test_template_tool.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/tools/template_tool.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/members/TEMPLATE.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/summary.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-group-collaboration/team.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-individual-onboarding/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-individual-onboarding/check_submission.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-individual-onboarding/classroom50-tests.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-individual-onboarding/docs/CLASSROOM50-WEB-UI.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-individual-onboarding/message.txt",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Classroom50/w00-individual-onboarding/profile.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "LICENSE",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "LICENSES/CC-BY-4.0.md",
+      "classification": "cc-license-notice",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "LICENSES/MIT.txt",
+      "classification": "mit-license-text",
+      "license": "MIT",
+      "origin": "standard-license-text"
+    },
+    {
+      "path": "PUBLIC-CONTENT.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "THIRD-PARTY-MATERIALS.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Personal Git Practice/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Personal Git Practice/check.sh",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Personal Git Practice/message.txt",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Personal Git Practice/profile.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Personal Git Practice/public_tests/check_personal.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Personal Git Practice/workbook.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/README.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/check.sh",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/issue-body-conflict.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/issue-body-profile.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/members/TEMPLATE.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/pr-body-conflict.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/pr-body-profile.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/public_tests/check_pr.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/public_tests/check_solo.py",
+      "classification": "code",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/shared/merge-practice.txt",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/team.json",
+      "classification": "configuration",
+      "license": "MIT",
+      "origin": "course-authored"
+    },
+    {
+      "path": "Week 0/Solo Collaboration Practice/workbook.md",
+      "classification": "instructional-prose",
+      "license": "CC-BY-4.0",
+      "origin": "course-authored"
+    }
+  ]
+}

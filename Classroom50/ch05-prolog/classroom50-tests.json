@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Week 5 submission is complete",
+    "type": "run",
+    "run": "python3 -I -c 'import hashlib,os,stat; p=\"check_submission.py\"; fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW); stat.S_ISREG(os.fstat(fd).st_mode) or (_ for _ in ()).throw(SystemExit(\"FAIL check_submission.py is not a regular file\")); f=os.fdopen(fd,\"rb\"); b=f.read(); f.close(); actual=hashlib.sha256(b).hexdigest(); expected=\"2c2af47579fce32d22d12736a7e52c533ab4794794148e8bd3b7ede926f5690b\"; actual==expected or (_ for _ in ()).throw(SystemExit(\"FAIL untrusted check_submission.py\")); exec(compile(b,p,\"exec\"),{\"__name__\":\"__main__\",\"__file__\":p})'",
+    "timeout": 30,
+    "points": 100
+  }
+]

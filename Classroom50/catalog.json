@@ -1,0 +1,346 @@
+{
+  "schema_version": 2,
+  "repository_role": "public-reusable-source",
+  "source_repository": "hoanganhduc/VNU-HUS-IntroAI-Exercises",
+  "source_repository_id": 1353117837,
+  "source_default_branch": "main",
+  "public_content_manifest": "PUBLIC-CONTENT.json",
+  "license_policy": {
+    "code_and_configuration": "MIT",
+    "original_instructional_prose": "CC-BY-4.0",
+    "third_party_materials": "excluded"
+  },
+  "bibliography": [
+    {
+      "id": "ertel-introai-3e-2025",
+      "type": "book",
+      "author": "Wolfgang Ertel",
+      "title": "Introduction to Artificial Intelligence",
+      "edition": 3,
+      "year": 2025,
+      "publisher": "Springer",
+      "doi": "10.1007/978-3-658-43102-0",
+      "url": "https://doi.org/10.1007/978-3-658-43102-0"
+    }
+  ],
+  "environment": {
+    "student_cli_version": "v1.40.0",
+    "devcontainer_image": "ghcr.io/hoanganhduc/vnu-hus-introai-exercises@sha256:3cd844162a63e2c08ef14f851b2628303edaacd990b7c8de216569b55b131d63"
+  },
+  "shared_guide": "Classroom50/shared/CLASSROOM50-WEB-UI.md",
+  "shared_files": [
+    {
+      "source": ".devcontainer/devcontainer-lock.json",
+      "target": ".devcontainer/devcontainer-lock.json"
+    },
+    {
+      "source": ".devcontainer/devcontainer.json",
+      "target": ".devcontainer/devcontainer.json"
+    },
+    {
+      "source": "LICENSE",
+      "target": "LICENSE"
+    },
+    {
+      "source": "LICENSES/CC-BY-4.0.md",
+      "target": "LICENSES/CC-BY-4.0.md"
+    },
+    {
+      "source": "LICENSES/MIT.txt",
+      "target": "LICENSES/MIT.txt"
+    },
+    {
+      "source": "THIRD-PARTY-MATERIALS.md",
+      "target": "THIRD-PARTY-MATERIALS.md"
+    }
+  ],
+  "assignments": [
+    {
+      "slug": "w00-individual-onboarding",
+      "title": "Week 0A — Individual Git and Classroom50 Practice",
+      "status": "ready",
+      "package": "Classroom50/w00-individual-onboarding",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "message.txt",
+        "profile.md"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": []
+    },
+    {
+      "slug": "w00-group-collaboration",
+      "title": "Week 0B — GitHub Collaboration Practice",
+      "status": "ready",
+      "package": "Classroom50/w00-group-collaboration",
+      "classroom50": {
+        "mode": "group",
+        "max_group_size": 5,
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "members/TEMPLATE.md",
+        "summary.md",
+        "team.json"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": []
+    },
+    {
+      "slug": "ch01-introduction",
+      "title": "Week 1 — Introduction: Exercise 1.1 scaffold",
+      "status": "ready",
+      "package": "Classroom50/ch01-introduction",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "submission.md"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "1.1",
+          "pages": [23]
+        }
+      ]
+    },
+    {
+      "slug": "ch02-propositional-logic",
+      "title": "Week 2 — Propositional Logic: Exercise 2.5 scaffold",
+      "status": "ready",
+      "package": "Classroom50/ch02-propositional-logic",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "solution/README.md"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "2.5",
+          "pages": [39]
+        }
+      ]
+    },
+    {
+      "slug": "ch03-first-order-logic",
+      "title": "Week 3 — First-Order Predicate Logic: Exercise 3.9 scaffold",
+      "status": "ready",
+      "package": "Classroom50/ch03-first-order-logic",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "check_submission.py",
+        "comparison.md",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "highjump.lop",
+        "proof.sh",
+        "russell.lop",
+        "semigroup.lop"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "3.9",
+          "pages": [66],
+          "note": "The course interprets the part (c) cross-reference as Exercise 3.8."
+        }
+      ]
+    },
+    {
+      "slug": "ch04-limitations-of-logic",
+      "title": "Week 4 — Limitations of Logic: Exercise 4.3 scaffold",
+      "status": "ready",
+      "package": "Classroom50/ch04-limitations-of-logic",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "analysis.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "proof.sh",
+        "tweety1.lop",
+        "tweety2.lop",
+        "tweety3.lop",
+        "tweety4.lop",
+        "tweety5.lop"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "4.3",
+          "pages": [75],
+          "note": "Course numbering correction for a repeated source exercise number."
+        }
+      ]
+    },
+    {
+      "slug": "ch05-prolog",
+      "title": "Week 5 — Logic Programming with PROLOG scaffolds",
+      "status": "ready",
+      "package": "Classroom50/ch05-prolog",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "answers.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "fib.pl",
+        "fib01.pl",
+        "ones.pl",
+        "plan2.pl"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "5.2",
+          "pages": [90]
+        },
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "5.3",
+          "pages": [90]
+        },
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "5.5",
+          "pages": [90]
+        },
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "5.8",
+          "pages": [91]
+        }
+      ]
+    },
+    {
+      "slug": "ch06-search",
+      "title": "Week 6 — Search, Games and Problem Solving scaffolds",
+      "status": "ready",
+      "package": "Classroom50/ch06-search",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "check_submission.py",
+        "docs/CLASSROOM50-WEB-UI.md",
+        "explanation.md",
+        "solution/README.md",
+        "submission.json"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "6.6",
+          "pages": [125]
+        },
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "6.12",
+          "pages": [126]
+        }
+      ]
+    },
+    {
+      "slug": "ch07-uncertainty",
+      "title": "Week 7 — Reasoning with Uncertainty placeholder",
+      "status": "blocked",
+      "blocked_reason": "No authorized statement or reviewed submission contract is present.",
+      "package": "Classroom50/ch07-uncertainty",
+      "classroom50": {
+        "mode": "individual",
+        "submission_mode": "tag",
+        "feedback_pr": true,
+        "pass_threshold": 100
+      },
+      "student_files": [
+        "README.md",
+        "answers.json",
+        "check_submission.py",
+        "derivation.md",
+        "docs/CLASSROOM50-WEB-UI.md"
+      ],
+      "teacher_files": [
+        "classroom50-tests.json"
+      ],
+      "references": [
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "7.9"
+        },
+        {
+          "work": "ertel-introai-3e-2025",
+          "exercise": "7.10"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "ghcr.io/hoanganhduc/vnu-hus-introai-exercises@sha256:3cd844162a63e2c08ef14f851b2628303edaacd990b7c8de216569b55b131d63",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		// Required for `gh codespace ssh`: the base image ships no SSH server.
+		"ghcr.io/devcontainers/features/sshd:1": {}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'updateContentCommand' to run commands when creating the container.
+	"updateContentCommand": "",
+
+	// GitHub CLI pins binary extensions by release tag.
+	"postCreateCommand": "gh extension install foundation50/gh-student --pin v1.40.0 --force",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"markdown.preview.fontSize": 16,
+				"terminal.integrated.fontSize": 16,
+				"editor.fontSize": 16,
+				"editor.wordWrap": "on",
+				"files.eol": "\n",
+				"git.autofetch": true,
+				"git.enableSmartCommit": true,
+				"terminal.integrated.cwd": "${fileDirname}",
+				// Add file associations
+				"files.associations": {
+					"*.lop": "prolog",
+					"*.pl": "prolog"
+				}
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"jeff-hykin.better-prolog-syntax",
+				"GitHub.copilot"
+			]
+		}
+	}
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

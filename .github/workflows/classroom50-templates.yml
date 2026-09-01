@@ -1,0 +1,50 @@
+name: Classroom50 public source checks
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".devcontainer/**"
+      - ".github/workflows/**"
+      - "Classroom50/**"
+      - "LICENSE"
+      - "LICENSES/**"
+      - "PUBLIC-CONTENT.json"
+      - "README.md"
+      - "THIRD-PARTY-MATERIALS.md"
+      - "Week 0/**"
+  push:
+    paths:
+      - ".devcontainer/**"
+      - ".github/workflows/**"
+      - "Classroom50/**"
+      - "LICENSE"
+      - "LICENSES/**"
+      - "PUBLIC-CONTENT.json"
+      - "README.md"
+      - "THIRD-PARTY-MATERIALS.md"
+      - "Week 0/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-public-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the source repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate the public source boundary
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python3 -I Classroom50/tools/template_tool.py validate
+
+      - name: Run the Classroom50 source tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python3 -I -B -m unittest discover -s Classroom50/tests -p "test_*.py" -v

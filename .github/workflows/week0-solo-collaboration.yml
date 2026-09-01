@@ -1,0 +1,30 @@
+name: Week 0 solo collaboration checks
+
+on:
+  pull_request:
+    paths:
+      - "Week 0/Solo Collaboration Practice/**"
+
+permissions:
+  contents: read
+
+jobs:
+  public-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate the proposed Week 0 changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: >-
+          python3
+          "Week 0/Solo Collaboration Practice/public_tests/check_pr.py"
+          "$BASE_SHA"
+          "$HEAD_SHA"

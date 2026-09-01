@@ -1,0 +1,18 @@
+# License policy
+
+This repository uses a split license:
+
+- Source code, completion checkers, scripts, workflows, JSON/JSONC/YAML
+  configuration, and other software-oriented files are licensed under the
+  [MIT License](LICENSES/MIT.txt).
+- Original instructional prose and response scaffolds are licensed under the
+  [Creative Commons Attribution 4.0 International License](LICENSES/CC-BY-4.0.md).
+- Standard license notices remain governed by the terms they state.
+
+The exact classification of every source file is recorded in the canonical
+[`PUBLIC-CONTENT.json`](https://github.com/hoanganhduc/VNU-HUS-IntroAI-Exercises/blob/main/PUBLIC-CONTENT.json).
+
+Third-party works are not included in either grant. Citations, names, links,
+dependency identifiers, and factual bibliographic metadata do not grant rights
+to the referenced works. See
+[`THIRD-PARTY-MATERIALS.md`](THIRD-PARTY-MATERIALS.md).
