@@ -25,7 +25,7 @@
   ],
   "environment": {
     "student_cli_version": "v1.40.0",
-    "devcontainer_image": "ghcr.io/hoanganhduc/vnu-hus-introai-exercises@sha256:3cd844162a63e2c08ef14f851b2628303edaacd990b7c8de216569b55b131d63"
+    "devcontainer_image": "ghcr.io/hoanganhduc/vnu-hus-introai-exercises@sha256:e67879466c7c3f9e0d757f4a0083224ca5f9be8fac296907ba8d0e85b215781b"
   },
   "shared_guide": "Classroom50/shared/CLASSROOM50-WEB-UI.md",
   "shared_files": [

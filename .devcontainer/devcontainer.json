@@ -3,7 +3,7 @@
 {
 	"name": "Ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/hoanganhduc/vnu-hus-introai-exercises@sha256:3cd844162a63e2c08ef14f851b2628303edaacd990b7c8de216569b55b131d63",
+	"image": "ghcr.io/hoanganhduc/vnu-hus-introai-exercises@sha256:e67879466c7c3f9e0d757f4a0083224ca5f9be8fac296907ba8d0e85b215781b",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
